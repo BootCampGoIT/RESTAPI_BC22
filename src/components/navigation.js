@@ -1,11 +1,11 @@
-import { refs } from "./refs.js";
-import products from "./pages/products.js";
-import profile from "./pages/profile.js";
-import auth from "./pages/auth.js";
+import { refs } from "./refs";
+import productsPage from "./pages/productsPage";
+import profilePage from "./pages/profilePage";
+import authPage from "./pages/authPage";
 
 
 const navigation = () => {
-  refs.content.innerHTML = products();
+  refs.content.innerHTML = productsPage();
 
   const setActivePage = (target) => {
     const activePage = document.querySelector('.activePage');
@@ -19,19 +19,19 @@ const navigation = () => {
 
       switch (page) {
         case "products":
-          refs.content.innerHTML = products();
+          productsPage();
           setActivePage(e.target);
           break;
         case "profile":
-          refs.content.innerHTML = profile();
+          profilePage();
           setActivePage(e.target);
           break;
         case "auth":
-          refs.content.innerHTML = auth();
+          refs.content.innerHTML = authPage();
           setActivePage(e.target);
           break;
         default:
-          refs.content.innerHTML = products();
+          refs.content.innerHTML = productsPage();
           setActivePage(e.target);
           break;
       }

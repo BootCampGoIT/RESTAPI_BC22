@@ -44,3 +44,53 @@ body {
 
 
 /* ================= profilePage ================== */
+
+
+/* ===================== productForm ================== */
+.productForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+}
+.productName, .productImage, .productDescription, .productPrice {
+  width: 250px;
+  margin: 5px;
+}
+
+
+
+/* .productDescription {
+
+
+} */
+
+
+/* =========================== ProductItem ============= */
+.productsList {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.productsItem {
+  width: 250px;
+  height: 300px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+}
+
+.productItemImage {
+  width: 30%;
+}
+
+
+
