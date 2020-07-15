@@ -1,0 +1,46 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: black;
+}
+
+/* ============== temp ================= */
+.title {
+  color: white;
+}
+/* =============== navigation ==================== */
+.navigationList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}
+
+.navigationListItem {
+  margin: 10px 20px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: white;
+  cursor: pointer;
+  width: 120px;
+  text-align: center;
+}
+
+.activePage {
+  background-color: cornflowerblue;
+  padding: 10px;
+  border-radius: 5px;
+}
+/* ============== productsPage ================== */
+
+
+
+/* ================= profilePage ================== */
