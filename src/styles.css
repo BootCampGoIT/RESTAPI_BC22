@@ -16,6 +16,17 @@ body {
 .title {
   color: white;
 }
+
+.button {
+  width: 120px;
+  background-color: cornflowerblue;
+  font-weight: 800;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+}
 /* =============== navigation ==================== */
 .navigationList {
   display: flex;
@@ -39,12 +50,13 @@ body {
   padding: 10px;
   border-radius: 5px;
 }
+
+.invisible {
+  display: none;
+}
 /* ============== productsPage ================== */
 
-
-
 /* ================= profilePage ================== */
-
 
 /* ===================== productForm ================== */
 .productForm {
@@ -55,19 +67,23 @@ body {
   background-color: white;
   border-radius: 5px;
   padding: 5px;
+  width: 300px;
 }
-.productName, .productImage, .productDescription, .productPrice {
-  width: 250px;
+.productName,
+.productImage,
+.productDescription,
+.productPrice {
+  width: 90%;
   margin: 5px;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 2px;
 }
-
-
 
 /* .productDescription {
 
 
 } */
-
 
 /* =========================== ProductItem ============= */
 .productsList {
@@ -92,5 +108,26 @@ body {
   width: 30%;
 }
 
+/* ====================== authForm ======================= */
+.authForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  width: 300px;
+  height: 120px;
+}
+.authForm input {
+  width: 90%;
+  border-radius: 5px;
+  border: 1px solid black;
+}
 
-
+.authFormButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}

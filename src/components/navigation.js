@@ -1,22 +1,25 @@
 import { refs } from "./refs";
 import productsPage from "./pages/productsPage";
 import profilePage from "./pages/profilePage";
-import authPage from "./pages/authPage";
+import authPage, { setActiveLinks } from "./pages/authPage";
+
 
 
 const navigation = () => {
-  refs.content.innerHTML = productsPage();
-
+  productsPage();
+  if (localStorage.getItem('user')) {
+    setActiveLinks()
+  }
   const setActivePage = (target) => {
     const activePage = document.querySelector('.activePage');
     activePage.classList.remove('activePage');
     target.classList.add('activePage');
+
   }
 
   const getPage = (e) => {
     if (e.target.dataset.page) {
       const page = e.target.dataset.page;
-
       switch (page) {
         case "products":
           productsPage();
@@ -27,11 +30,16 @@ const navigation = () => {
           setActivePage(e.target);
           break;
         case "auth":
-          refs.content.innerHTML = authPage();
+          authPage();
           setActivePage(e.target);
           break;
+        case "signout":
+          localStorage.clear();
+          setActivePage(e.target);
+          setActiveLinks();
+          break;
         default:
-          refs.content.innerHTML = productsPage();
+          productsPage();
           setActivePage(e.target);
           break;
       }

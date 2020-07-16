@@ -1,20 +1,24 @@
 import { refs } from "../refs";
 import { shop } from "../shop"
 import productsForm from "../productsForm";
-import { addProduct } from "../services";
+import { addProduct, deleteProduct } from "../services";
+import { createProductsMarkup, createProductsItemMarkup } from '../pages/productsPage';
 
-const product = {
+const initialValues = {
   productName: '',
   productImage: '',
   productDescription: '',
   productPrice: 0
+}
+
+const product = {
+  ...initialValues
 };
 // =========================== Base64 ========================
 
 function toDataURL(element) {
   return new Promise(resolve => {
     const reader = new FileReader();
-    console.dir(reader)
     reader.onloadend = () => resolve(reader.result);
     reader.readAsDataURL(element.files[0]);
   });
@@ -30,7 +34,8 @@ const createbase = () => {
 
 // =========================== Base64 end========================
 
-const profile = () => {
+const profilePage = () => {
+  shop.currentPage = 'profile';
   refs.content.innerHTML = productsForm();
 
 
@@ -40,17 +45,48 @@ const profile = () => {
   }
   const addNewProduct = (e) => {
     e.preventDefault();
-
-    // shop.productItems = [...shop.productItems, product]
     addProduct(product)
-      .then(response => console.log(response.data.name))
+      // .then(response => console.log(response.data.name))
+      .then((response) => {
+        shop.productItems = [{ productId: response.data.name, ...product }, ...shop.productItems]
+        const list = document.querySelector('.productsList');
+        list.insertAdjacentHTML("afterbegin", createProductsItemMarkup({ productId: response.data.name, ...product }))
+      })
+      .finally(() => {
+        product.productName = '';
+        product.productImage = '';
+        product.productDescription = '';
+        product.productPrice = 0;
+        document.forms.productForm.reset();
+      })
   }
 
-  const productForm = document.querySelector('.productForm');
+  const deleteProductItem = (e) => {
+    if (e.target.dataset.button === 'deletebutton') {
+      const id = e.target.closest('[data-id]').dataset.id;
+      deleteProduct(id).then(() => {
+        console.log(id)
+        shop.productItems = shop.productItems.filter(product => product.productId !== id);
+        console.log(shop)
+        const list = document.querySelector('.productsList');
+        list.innerHTML = createProductsMarkup(shop.productItems.reverse())
+      });
+    }
+
+  }
+
+  refs.content.insertAdjacentHTML("beforeend", createProductsMarkup(shop.productItems.reverse()));
+
+  const list = document.querySelector('.productsList');
+  list.addEventListener('click', deleteProductItem)
+
+  // const productForm = document.querySelector('.productForm');
+  const productForm = document.forms.productForm;
   productForm.addEventListener('input', getInfo);
   productForm.image.addEventListener('input', createbase);
   productForm.addEventListener('submit', addNewProduct);
 
+
 }
 
-export default profile;
+export default profilePage;

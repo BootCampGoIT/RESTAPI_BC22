@@ -3,33 +3,42 @@ import { shop } from '../shop';
 import { refs } from "../refs";
 
 
-const createProductsMarkup = (products) => {
+export const createProductsMarkup = (products) => {
   return `
   <ul class="productsList">
-  ${products.reduce((acc, product) => {
+  ${products.reverse().reduce((acc, product) => {
     acc += createProductsItemMarkup(product)
     return acc
   }, '')}
   </ul>
   `
 }
-const createProductsItemMarkup = (product) => {
+export const createProductsItemMarkup = (product) => {
   return `
-  <li id=${product.productId} class="productsItem">
-  <h2 class="productItemName">${product.productName}</h2>
-  <img src=${product.productImage} class="productItemImage"/>
-  <p class="productItemDescription">${product.productDescription}</p>
-  <p class="productItemPrice">${product.productPrice}</p>
-  <button type="button">Add to cart</button>
+  <li data-id=${product.productId} class="productsItem">
+    <h2 class="productItemName">${product.productName}</h2>
+    <img src=${product.productImage} class="productItemImage"/>
+    <p class="productItemDescription">${product.productDescription}</p>
+    <p class="productItemPrice">${product.productPrice}</p>
+    ${(shop.currentPage === 'products')
+      ? `<button type="button" data-button="cartbutton">Add to cart</button>`
+      : `<div class="profilesOptions">
+    <button type="button" data-button="deletebutton">Delete</button>
+    <button type="button" data-button="editbutton">Edit</button>
+  </div>`
+    }
+
+
   </li>
   `
 }
 
 
-const products = () => {
+const productsPage = () => {
+  shop.currentPage = 'products';
   getProducts()
     .then(data => shop.productItems = [...data])
     .then(data => refs.content.innerHTML = createProductsMarkup(data))
 }
 
-export default products;
+export default productsPage;

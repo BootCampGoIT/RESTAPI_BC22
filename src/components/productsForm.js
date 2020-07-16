@@ -5,7 +5,7 @@ const productsForm = () => {
     <input type="file" class="productImage" name="image"/>
     <textarea cols="30" rows="10" name="productDescription" class="productDescription"></textarea>
     <input type="number" name="productPrice" class="productPrice"/>
-    <button type="submit">Add product</button>
+    <button type="submit" class="productFormButton button">Add product</button>
   </form>
   `
 }

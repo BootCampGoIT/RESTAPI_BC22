@@ -1,3 +1,4 @@
 export const shop = {
-  productItems: []
+  productItems: [],
+  currentPage: 'products'
 }
