@@ -1,6 +1,6 @@
 import { refs } from "../refs";
 import { authForm } from '../authForm';
-import { signUp, signIn } from '../services';
+import { signUp, signIn, addUserToDB, getUserDbId } from '../services';
 import productsPage from '../pages/productsPage';
 import { shop } from "../shop";
 
@@ -46,18 +46,23 @@ const authPage = () => {
     (submitter === 'signup') &&
       signUp(user)
         .then(response => {
-          localStorage.setItem('user', JSON.stringify({ token: response.data.idToken, id: response.data.localId, email: response.data.email }));
           setActiveLinks();
           setDefaultSettings();
-
+          addUserToDB(response.data)
+            .then(responseFromDB => {
+              localStorage.setItem('user', JSON.stringify({ userDbId: responseFromDB.data.name, token: response.data.idToken, id: response.data.localId, email: response.data.email }));
+            });
         });
 
     (submitter === 'signin') &&
       signIn(user)
         .then(response => {
-          localStorage.setItem('user', JSON.stringify({ token: response.data.idToken, id: response.data.localId, email: response.data.email }))
-          setActiveLinks();
-          setDefaultSettings();
+          getUserDbId(response.data.localId).then(IDCaps => {
+            localStorage.setItem('user', JSON.stringify({userDbId: IDCaps,  token: response.data.idToken, id: response.data.localId, email: response.data.email }))
+            setActiveLinks();
+            setDefaultSettings();
+          })
+
         });
   }
 

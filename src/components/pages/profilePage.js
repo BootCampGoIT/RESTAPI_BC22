@@ -1,18 +1,22 @@
 import { refs } from "../refs";
 import { shop } from "../shop"
 import productsForm from "../productsForm";
-import { addProduct, deleteProduct } from "../services";
+import { addProduct, deleteProduct, addUserProduct } from "../services";
 import { createProductsMarkup, createProductsItemMarkup } from '../pages/productsPage';
 
-const initialValues = {
+// const initialValues = {
+//   productName: '',
+//   productImage: '',
+//   productDescription: '',
+//   productPrice: 0
+// }
+
+const product = {
   productName: '',
   productImage: '',
   productDescription: '',
-  productPrice: 0
-}
-
-const product = {
-  ...initialValues
+  productPrice: 0,
+  category: 'food',
 };
 // =========================== Base64 ========================
 
@@ -43,14 +47,16 @@ const profilePage = () => {
     product[e.target.name] = e.target.value;
 
   }
+
   const addNewProduct = (e) => {
     e.preventDefault();
+    product.author = JSON.parse(localStorage.getItem('user')).id;
     addProduct(product)
-      // .then(response => console.log(response.data.name))
       .then((response) => {
         shop.productItems = [{ productId: response.data.name, ...product }, ...shop.productItems]
         const list = document.querySelector('.productsList');
         list.insertAdjacentHTML("afterbegin", createProductsItemMarkup({ productId: response.data.name, ...product }))
+        addUserProduct(response.data.name)
       })
       .finally(() => {
         product.productName = '';
@@ -75,7 +81,7 @@ const profilePage = () => {
 
   }
 
-  refs.content.insertAdjacentHTML("beforeend", createProductsMarkup(shop.productItems.reverse()));
+  refs.content.insertAdjacentHTML("beforeend", createProductsMarkup(shop.getUserProducts()));
 
   const list = document.querySelector('.productsList');
   list.addEventListener('click', deleteProductItem)

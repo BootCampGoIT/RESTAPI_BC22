@@ -27,6 +27,11 @@ body {
   border-radius: 5px;
   padding: 5px;
 }
+
+.content {
+  display: flex;
+  justify-content: center;
+}
 /* =============== navigation ==================== */
 .navigationList {
   display: flex;
@@ -55,7 +60,24 @@ body {
   display: none;
 }
 /* ============== productsPage ================== */
+.categoriesList {
+  display: flex;
+  flex-direction: column;
+  width: 330px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  margin-left: 5px;
+  list-style: none;
+  margin-top: 20px;
+}
 
+.categoriesListItem {
+  padding: 20px;
+  text-transform: uppercase;
+  font-weight: 800;
+  cursor: pointer;
+}
 /* ================= profilePage ================== */
 
 /* ===================== productForm ================== */
@@ -68,11 +90,13 @@ body {
   border-radius: 5px;
   padding: 5px;
   width: 300px;
+  height: 400px;
 }
 .productName,
 .productImage,
 .productDescription,
-.productPrice {
+.productPrice,
+.productCategory {
   width: 90%;
   margin: 5px;
   border-radius: 5px;
@@ -94,19 +118,36 @@ body {
 }
 
 .productsItem {
-  width: 250px;
-  height: 300px;
+  width: 300px;
+  height: 400px;
   background-color: white;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 5px;
   margin: 5px;
 }
 
 .productItemImage {
-  width: 30%;
+  max-height: 170px;
+
 }
+.productItemName {
+  text-align: center;
+}
+
+.productItemDescription, .productItemPrice {
+  text-indent: 10px;
+  width: 90%;
+}
+
+.cartbutton {
+  width: 50%;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
 
 /* ====================== authForm ======================= */
 .authForm {

@@ -11,10 +11,9 @@ const navigation = () => {
     setActiveLinks()
   }
   const setActivePage = (target) => {
-    const activePage = document.querySelector('.activePage');
+    const activePage = refs.navigationList.querySelector('.activePage');
     activePage.classList.remove('activePage');
     target.classList.add('activePage');
-
   }
 
   const getPage = (e) => {
